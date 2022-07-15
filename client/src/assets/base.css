@@ -1,0 +1,11 @@
+.btn-perso {
+  background-color: #159A9C;
+  color: #fff;
+  transition: .3s ease color;
+}
+
+.navbar,
+.header-list {
+  background-color: #002333;
+  background: linear-gradient(90deg, rgba(0,35,51,1) 0%, rgba(51,85,101,1) 100%);
+}
