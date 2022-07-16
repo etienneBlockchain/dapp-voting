@@ -1,2 +1,2 @@
-# dapp-voting
+# Dapp Voting
 Alyra Exo - Projet Dapp
