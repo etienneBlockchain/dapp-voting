@@ -28,9 +28,7 @@
 	</header>
 
 	<div class="container mb-3">
-		<div v-if="!connectedWallet" class="alert alert-danger" role="alert">
-			Please connect your wallet to access the application
-		</div>
+		<div v-if="!connectedWallet" class="alert alert-danger" role="alert">Please connect your wallet to access the application.</div>
 		<div v-else>
 			<div v-if="successAlert.show" class="alert alert-success mb-5" role="alert">{{ successAlert.message }}</div>
 
@@ -39,7 +37,7 @@
 					<div v-if="currentOwner && workflowStatus == 0" class="mb-5">
 						<label for="add-address" class="font-weight-bold">Add a voter</label>
 						<div class="form-inline">
-							<input type="text" class="form-control col-6" v-model="addVoter" placeholder="Address" id="add-address">
+							<input type="text" autocomplete="off" class="form-control col-6" v-model="addVoter" placeholder="Address" id="add-address">
 							<button class="btn btn-perso ml-3" @click="addVoterAddress()"><i class="bi bi-person-plus mr-2"></i> Add a voter</button>
 						</div>
 						<div v-if="errorAddVoter" class="text-danger mt-1 small">{{ errorAddVoter }}</div>
@@ -48,7 +46,7 @@
 					<div v-if="currentVoter" class="mb-5">
 						<label for="search-address" class="font-weight-bold">Search a voter</label>
 						<div class="form-inline">
-							<input type="text" class="form-control col-6" v-model="searchVoter" placeholder="Address" id="search-address">
+							<input autocomplete="off" type="text" class="form-control col-6" v-model="searchVoter" placeholder="Address" id="search-address">
 							<button class="btn btn-perso ml-3" @click="searchVoterAddress()"><i class="bi bi-search mr-2"></i> Search</button>
 						</div>
 						<div v-if="errorSearchVoter" class="text-danger mt-1 small">{{ errorSearchVoter }}</div>
@@ -73,13 +71,13 @@
 					<div v-if="currentVoter && workflowStatus == 1" class="mb-5">
 						<label for="description-proposal" class="font-weight-bold">Add a proposal</label>
 						<div class="form-inline">
-							<input type="text" class="form-control col-6" v-model="addProposal" placeholder="Description" id="description-proposal">
+							<input autocomplete="off" type="text" class="form-control col-6" v-model="addProposal" placeholder="Description" id="description-proposal">
 							<button class="btn btn-perso ml-3" @click="addProposalDescription()"><i class="bi bi-plus-circle mr-2"></i> Add a proposal</button>
 						</div>
 						<div v-if="errorAddProposal" class="text-danger mt-1 small">{{ errorAddProposal }}</div>
 
 						<ul class="list-group mt-5">
-							<li class="list-group-item text-light font-weight-bold header-list">List proposals</li>
+							<li class="list-group-item text-light font-weight-bold header-list">Proposals list</li>
 							<li class="list-group-item" v-show="!proposalsList[0]">No proposal</li>
 							<li v-for="proposal in proposalsList" class="list-group-item">
 								<strong>{{ proposal.id }}</strong> - {{ proposal.label }}
@@ -89,7 +87,7 @@
 
 					<div v-if="currentVoter && workflowStatus == 3">
 						<ul class="list-group mt-5">
-							<li class="list-group-item text-light font-weight-bold header-list">List proposals</li>
+							<li class="list-group-item text-light font-weight-bold header-list">Proposals list</li>
 							<li v-for="proposal in proposalsList" class="list-group-item align-middle">
 								<div class="row">
 									<div class="col-8 align-self-center">
