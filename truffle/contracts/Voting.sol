@@ -5,7 +5,7 @@ import "../node_modules/@openzeppelin/contracts/access/Ownable.sol";
 
 /**
  * @title Voting system 
- * @author Alyra
+ * @author Alyra - Etienne
  * @dev Allows register voters, register proposal, tally votes, change status voting...
  */
 contract Voting is Ownable {
@@ -99,6 +99,7 @@ contract Voting is Ownable {
     /**
      * @dev Save vote, it's available only for the voters
      * Emits an event voted with address voter and proposal id
+     * Save the Winner ID
      * @param _id uint proposal id
      */
     function setVote( uint _id) external onlyVoters {
@@ -109,6 +110,10 @@ contract Voting is Ownable {
         voters[msg.sender].votedProposalId = _id;
         voters[msg.sender].hasVoted = true;
         proposalsArray[_id].voteCount++;
+
+        if (proposalsArray[_id].voteCount > proposalsArray[winningProposalID].voteCount) {
+            winningProposalID = _id;
+        }
 
         emit Voted(msg.sender, _id);
     }
@@ -155,18 +160,10 @@ contract Voting is Ownable {
 
     /**
      * @dev tally votes available only for the owner
-     * Save the winner unit in winningProposalID
      * Emits an event workflow status change
      */
     function tallyVotes() external onlyOwner {
         require(workflowStatus == WorkflowStatus.VotingSessionEnded, "Current status is not voting session ended");
-        uint _winningProposalId;
-        for (uint256 p = 0; p < proposalsArray.length; p++) {
-            if (proposalsArray[p].voteCount > proposalsArray[_winningProposalId].voteCount) {
-                _winningProposalId = p;
-            }
-        }
-        winningProposalID = _winningProposalId;
 
         workflowStatus = WorkflowStatus.VotesTallied;
         emit WorkflowStatusChange(WorkflowStatus.VotingSessionEnded, WorkflowStatus.VotesTallied);
